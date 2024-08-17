@@ -35,7 +35,7 @@ export const SecondStepPageCheescake = () => {
         }
         const dataDessert = [null, null, selectedOption1 + ': ' + description, null];
         const level = 80;
-        const title = 'Puedes escoger alguna imagen de referencia';
+        const title = 'Escoge la fecha de recolección';
         dispatch(chooseDataOfDessert({dataDessert, level, title}));
     }
 

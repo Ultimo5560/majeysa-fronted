@@ -14,14 +14,12 @@ export const FiveStepPage = () => {
   const { msjForm, statusMsj, msjError, msjInputError, msjSend, msjReset } = useMsgForm();
 
   const onInputName = ({ target }) => {
-    console.log(target.value);
     setInputName(target.value);
     const [form] = document.getElementsByName('name');
     target.className.includes('input--off') && form.classList.remove('input--off');
   };
 
   const onInputEmail = ({ target }) => {
-    console.log(target.value);
     setInputEmail(target.value);
     const [form] = document.getElementsByName('Email');
     target.className.includes('input--off') && form.classList.remove('input--off');

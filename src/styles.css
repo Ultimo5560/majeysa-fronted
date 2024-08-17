@@ -391,6 +391,17 @@ hr{
     z-index: 1;
 }
 
+.error_button{
+    border: none;
+    background: none;
+    height: 40px;
+    margin-top: 70px;
+    color: #ffffff;
+    cursor: pointer;
+
+
+}
+
 .botton-id > img{
     display: flex;
     margin: 10px auto;
@@ -419,6 +430,15 @@ hr{
     height: 100%;
     background: #551f4c;
     transition: width 1s ease-out;
+    
+}
+
+.spinner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 
@@ -1016,6 +1036,21 @@ hr{
     top: 200px;
   }
 
+  .loading-pay-button{
+    position: relative;
+    /* display: flex; */
+    width: 54px;
+    height: 54px;
+    border-top: 5px solid #551f4c;
+    border-bottom: 5px solid #ffffff;
+    border-right: 5px solid #ffffff;
+    border-left: 5px solid #ffffff;
+    border-radius: 50%;
+    animation: spiner .9s linear infinite;
+    margin: 20px auto;
+
+  }
+
   .contact__show_msj {
     position: absolute;
     display: flex;
@@ -1107,6 +1142,12 @@ hr{
     width: 90%;
 }
 
+.payment_container > div {
+    flex-direction: column;
+    justify-content:flex-start;
+    padding: 30px;
+}
+
 .client_data__confirm{
     display: flex;
     flex-direction: column;
@@ -1115,7 +1156,9 @@ hr{
     border: 1px solid rgba(116, 114, 114, 0.527);
     border-radius: 20px;
     padding-left: 15px;
-    height: 100%;
+    padding-top: 20px;
+    padding-right: 20px;
+    height: 300px;
     /* width: 50%; */
 }
 
@@ -1198,7 +1241,7 @@ hr{
         flex-direction: column;
         margin: 0;
         /* width: 100%; */
-        height: 100vh;
+        height: 130vh;
     }
 
     .poster_conteiner__image{
@@ -1583,6 +1626,9 @@ hr{
 
     .client_data__confirm{
         width: 100%;
+        height: 45vh;
+        max-height: max-content;
+        margin-bottom: 30px;
     }
 
     #paymentBrick_container{
@@ -1621,6 +1667,10 @@ hr{
         font-size: 20px;
         width: 80%;
     }
+
+    .calendar-header{
+        width: 100%;
+    }
     
 
 
@@ -1633,7 +1683,6 @@ hr{
 
 
     .poster_container {
-
         height: 140vh;
     }
 
@@ -1713,6 +1762,102 @@ hr{
 
     .parr_footer {
         width: 90%;
+    }
+
+    .boton-order{
+        width: 70%;
+        margin: 0 20px;
+        height: 70px;
+    }
+
+    .second_step_form > div > div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .calendar {
+        width: 100%;
+    }
+
+    .calendar-header {
+        height: 80px;
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .calendar-day-name {
+        display: none;
+    }
+
+    .hoursChoose {
+        flex-direction: column;
+    }
+
+    .hoursChoose >label{
+        width: 100%;
+        font-size: 23px;
+    }
+    .hours_input_select {
+        margin-top: 20px;
+        width: 100%;
+        height: 70px;
+        font-size: 30px;
+    }
+
+    .calendar-header > button {
+        height: 80%;
+        width: 100px;
+    }
+
+    .container_step_third {
+        width: 95%;
+    }
+
+    .container_step_third > div {
+        padding: 5px;
+    }
+
+    .layout_steps::after{
+        margin-bottom: 50px;
+    }
+
+    .container_steps{
+        width: 95%;
+    }
+    
+    
+    .second_step_form > div > div > select {
+        height: 90px;
+        width: 90%;
+        margin:0;
+        font-size: 20px;
+        background: #252525;
+        color: #afafaf;
+        padding-left: 50px;
+        transition: background 0.3s ease; /* Añade esta línea para la transición */
+    }
+
+    .error {
+        width: 90%;
+    }
+
+    .calendar-header > h2 {
+        font-size: 18px;
+    }
+
+    .five_step__container {
+        width: 90%;
+    }
+
+    .five_step__container > input {
+        height: 60px;
+    }
+
+    .five_step__container > input + label {
+        font-size: 15px;
     }
 
 

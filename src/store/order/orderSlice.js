@@ -14,12 +14,16 @@ export const orderSlice = createSlice({
         hourCollectDessert: null,
         dataOfClient: null,
         title:'Escoge el tipo de postre',
-        loading: false,
+        loading:false,
         keyWord:null,
         imagesPreChoose:null,
         statusTrasactionPay:null,
+        statusMailFinish:null
    },
    reducers: {
+        isSendMailFinish: (state, {payload}) => {
+          state.statusMailFinish = payload
+        },     
         isLoadingFalse: (state) => {
           state.loading = false
         },
@@ -111,6 +115,7 @@ export const {
     imagesForChooseForPage,
     isPriceDessert,
     handleTransactionStatusPay,
-    beforePage
+    beforePage,
+    isSendMailFinish
 
 } = orderSlice.actions;

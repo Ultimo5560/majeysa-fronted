@@ -1,80 +1,116 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { createPreference, makePayment } from '../../store/order/thunks';
-import { useMercadoPago } from '../../hooks/useMercadoPago';
-import { handleTransactionStatusPay } from '../../store/order';
-import config from '../../../config.json';
+// import React, { useState, useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createPreference, makePayment } from '../../store/order/thunks';
+// import { handleTransactionStatusPay } from '../../store/order';
+// import config from '../../../config.json';
+// // Puedes usar cualquier biblioteca de spinners o crear uno propio
+// // import { ClipLoader } from 'react-spinners'; // Si usas react-spinners
 
-export const PaymentBrick = () => {
-  const dispatch = useDispatch();
-  const { dataOfClient, priceOfDessert } = useSelector(state => state.order);
+// export const PaymentBrick = () => {
+//   const dispatch = useDispatch();
+//   const { dataOfClient, priceOfDessert } = useSelector(state => state.order);
+//   const [isLoading, setIsLoading] = useState(true); // Estado de carga
+//   const [preferenceId, setPreferenceId] = useState(null);
 
-  useMercadoPago(async () => {
-    try {
-      const MERCADO_PAGO_ACCESS_KEY = config.MERCADO_PAGO_ACCESS_KEY;
-      const preferenceId = await dispatch(createPreference(dataOfClient));
-      const mp = new window.MercadoPago(MERCADO_PAGO_ACCESS_KEY, { locale: 'es-MX' });
-      const bricksBuilder = mp.bricks();
-      renderPaymentBrick(bricksBuilder, preferenceId);
-    } catch (error) {
-      console.error('Error initializing MercadoPago:', error);
-    }
-  });
+//   useEffect(() => {
+//     const initializeCheckout = async () => {
+//       try {
+//         const response = await dispatch(createPreference(dataOfClient, priceOfDessert));
 
-  const renderPaymentBrick = async (bricksBuilder, preferenceId) => {
-    const settings = {
-      initialization: {
-        amount: priceOfDessert,
-        preferenceId: preferenceId,
-        payer: {
-          firstName: dataOfClient.name,
-          lastName: dataOfClient.lastName,
-          email: dataOfClient.email, // Asegúrate de que este email esté presente
-        },
-      },
-      customization: {
-        visual: {
-          style: {
-            theme: 'dark',
-          },
-        },
-        paymentMethods: {
-          creditCard: "all",
-          debitCard: "all",
-          bankTransfer: "all",
-          atm: "all",
-          wallet_purchase: "all",
-          ticket: "all",
-          onboarding_credits: "all",
-          maxInstallments: 1
-        },
-      },
-      callbacks: {
-        onReady: () => {
-          // Callback opcional para manejar cuando el Brick esté listo
-        },
-        onSubmit: async ({ selectedPaymentMethod, formData }) => {
-          dispatch(handleTransactionStatusPay('checking'));
-          try {
-            await dispatch(makePayment(formData, dataOfClient));
-            // Lógica adicional después de hacer el pago si es necesario
-          } catch (error) {
-            console.error('Error making payment:', error);
-            throw error; // Asegura que los errores se manejen apropiadamente
-          }
-        },
-        onError: (error) => {
-          console.error('Error en MercadoPago:', error);
-        },
-      },
-    };
+//         if (response) {
+//           setPreferenceId(response);
+//         } else {
+//           console.error('Error: preference_id not found in response');
+//         }
+//       } catch (error) {
+//         console.error('Error creating preference:', error);
+//       } finally {
+//         setIsLoading(false); // Ocultar spinner una vez que obtengas la preferencia
+//       }
+//     };
 
-    // Crea el Brick de pago
-    window.paymentBrickController = await bricksBuilder.create(
-      'payment',
-      'paymentBrick_container',
-      settings
-    );
-  };
+//     initializeCheckout();
+//   }, [dispatch, dataOfClient, priceOfDessert]);
 
-  return <div id="paymentBrick_container"></div>;
-};
+//   useEffect(() => {
+//     if (preferenceId) {
+//       const loadMercadoPagoScript = () => {
+//         const script = document.createElement('script');
+//         script.src = 'https://sdk.mercadopago.com/js/v2';
+//         script.onload = () => {
+//           const mp = new window.MercadoPago(config.MERCADO_PAGO_ACCESS_KEY, { locale: 'es-MX' });
+//           const bricksBuilder = mp.bricks();
+//           renderPaymentBrick(bricksBuilder, preferenceId);
+//         };
+//         document.body.appendChild(script);
+//       };
+
+//       loadMercadoPagoScript();
+//     }
+//   }, [preferenceId]);
+
+//   const renderPaymentBrick = async (bricksBuilder, preferenceId) => {
+//     const settings = {
+//       initialization: {
+//         amount: priceOfDessert,
+//         preferenceId: preferenceId,
+//       },
+//       customization: {
+//         visual: {
+//           style: {
+//             theme: 'dark',
+//           },
+//         },
+//         paymentMethods: {
+//           creditCard: "all",
+//           debitCard: "all",
+//           bankTransfer: "all",
+//           atm: "all",
+//           wallet_purchase: "all",
+//           ticket: "all",
+//           onboarding_credits: "all",
+//           maxInstallments: 1
+//         },
+//       },
+//       callbacks: {
+//         onReady: () => {
+//           // Una vez que el Brick esté listo, puedes ocultar el spinner
+//           setIsLoading(false);
+//         },
+//         onSubmit: async ({ selectedPaymentMethod, formData }) => {
+//           dispatch(handleTransactionStatusPay('checking'));
+//           try {
+//             await dispatch(makePayment(formData, dataOfClient));
+//             // Lógica adicional después de hacer el pago si es necesario
+//           } catch (error) {
+//             console.error('Error making payment:', error);
+//             throw error; // Asegura que los errores se manejen apropiadamente
+//           }
+//         },
+//         onError: (error) => {
+//           console.error('Error en MercadoPago:', error);
+//           setIsLoading(false); // Ocultar el spinner en caso de error
+//         },
+//       },
+//     };
+
+//     try {
+//       // Crea el Brick de pago
+//       await bricksBuilder.create('payment', 'paymentBrick_container', settings);
+//     } catch (error) {
+//       console.error('Error creating payment brick:', error);
+//       setIsLoading(false); // Asegúrate de ocultar el spinner en caso de error
+//     }
+//   };
+
+//   return (
+//     <div>
+//       {isLoading ? (
+//         <div>Cargando...</div>
+//         // <ClipLoader size={50} color={"#123abc"} loading={isLoading} /> // Ejemplo usando react-spinners
+//       ) : (
+//         <div id="paymentBrick_container"></div>
+//       )}
+//     </div>
+//   );
+// };

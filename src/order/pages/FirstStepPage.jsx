@@ -6,7 +6,6 @@ export const FirstStepPage = () => {
   const dispatch = useDispatch();
 
   const handleChooseDessert = (dessert, level, keyWord) => {
-    console.log(dessert, level);
     const title = (dessert === 'Pastel') ? 'Escoge el tamaño, la forma y los sabores' : (dessert === 'Cupcakes') ? 'Escoge la cantidad y el sabor' : 'Escoge el sabor'; 
     dispatch(chooseDessert({dessert, level, keyWord, title}))
   }

@@ -4,6 +4,7 @@ import { ErrorTransactionPage } from '../pages/ErrorTransactionPage';
 import { SuccessTransactionPage } from '../pages/SuccessTransactionPage';
 import { LoadingPage } from '../pages/LoadingPage';
 import { useSelector } from 'react-redux';
+import { PendingTransactionPage } from '../pages/PendingTransactionPage';
 
 export const OrderRoutes = () => {
   const { statusTrasactionPay } = useSelector(state => state.order);
@@ -14,12 +15,9 @@ export const OrderRoutes = () => {
 
   return (
     <Routes>
-      {statusTrasactionPay && (statusTrasactionPay === 200 || statusTrasactionPay === 201) && (
-        <Route path="/success-transaction" element={<SuccessTransactionPage />} />
-      )}
-      {statusTrasactionPay && statusTrasactionPay !== 200 && statusTrasactionPay !== 201 && (
-        <Route path="/error-transaction" element={<ErrorTransactionPage />} />
-      )}
+      <Route path="/success-transaction" element={<SuccessTransactionPage />} />
+      <Route path="/error-transaction/*" element={<ErrorTransactionPage />} />
+      <Route path="/pennding-transaction" element={<PendingTransactionPage />} />
       <Route path="/" element={<MakingOrder />} />
       <Route path="*" element={<Navigate to="/making-order" />} />
     </Routes>
