@@ -15,9 +15,9 @@ export const AppRouter = () => {
 
         {/* Rutas de la aplicación de panadería */}
         <Route path="*" element={<PosterRoutes />} />
-        <Route path="making-order/success-transaction" element={<SuccessTransactionPage />} />
-        <Route path="making-order/error-transaction" element={<ErrorTransactionPage />} />
-        <Route path="making-order/pending-transaction" element={<PendingTransactionPage />} />
+        <Route path="success-transaction" element={<SuccessTransactionPage />} />
+        <Route path="error-transaction/*" element={<ErrorTransactionPage />} />
+        <Route path="pending-transaction" element={<PendingTransactionPage />} />
         <Route path="making-order/*" element={<OrderRoutes />} />
         {/* <Route path="checking" element={<LoadingPage />} /> */}
 
