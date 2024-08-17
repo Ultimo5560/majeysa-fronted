@@ -15,9 +15,6 @@ export const OrderRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/success-transaction" element={<SuccessTransactionPage />} />
-      <Route path="/error-transaction/*" element={<ErrorTransactionPage />} />
-      <Route path="/pennding-transaction" element={<PendingTransactionPage />} />
       <Route path="/" element={<MakingOrder />} />
       <Route path="*" element={<Navigate to="/making-order" />} />
     </Routes>
